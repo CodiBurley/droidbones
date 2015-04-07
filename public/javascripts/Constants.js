@@ -13,13 +13,13 @@ var CONSTANT = (function() {
     		+'&ltLinearLayout<br>'
         		+'android:orientation="horizontal"<br>'
         		+'android:layout_width="match_parent"<br>'
-        		+'android:layout_height="0dp"'
+        		+'android:layout_height="0dp"<br>'
         		+'android:layout_weight="1"&gt<br>',
         "COLUMN":
         	  '&lt!-- COLUMN --&gt<br>'
         	 +'&ltLinearLayout<br>'
 	            +'android:orientation="vertical"<br>'
-	            +'android:layout_width="0dp"'
+	            +'android:layout_width="0dp"<br>'
 	            +'android:layout_height="match_parent"<br>'
 	            +'android:layout_weight="1"&gt<br>',
 	    "BUTTON":''
@@ -30,7 +30,8 @@ var CONSTANT = (function() {
 		"ROW": '&lt/LinearLayout&gt<br>',
 		"COLUMN": '&lt/LinearLayout&gt<br>',
 		"BUTTON":
-	    	    '&ltButton<br>'
+				'&lt!-- BUTTON --&gt<br>'
+	    	    +'&ltButton<br>'
 	                +'android:layout_width="match_parent"<br>'
 	                +'android:layout_height="match_parent"<br>'
 	                +'android:text="New Button"/&gt<br>'		

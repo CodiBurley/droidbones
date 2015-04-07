@@ -9,7 +9,6 @@
 	 */
 	var renderLayout = function(child) {
 		for(var i = 0; i < child.children.length; i++) {
-			console.log(child.children[i].type)
 			renderLayout(child.children[i]);
 		}
 		writeXml(child);
@@ -32,23 +31,10 @@
 	 */
 	var clearLayout = function(child) {
 		for(var i = 0; i < child.children.length; i++) {
-			console.log(child.children[i].type)
 			clearLayout(child.children[i]);
 		}
 		child.xml = "";
 	}
-	/*Layout.addChild(Row1).addChild(Row2).addChild(Row3).addChild(Row4);
-	Row1.addChild(Col1R1).addChild(Col2R1);
-	Col1R1.addChild(buttonR1);
-	Row2.addChild(Col1R2).addChild(Col2R2).addChild(Col3R2);
-	Col2R2.addChild(buttonR2);
-	Row3.addChild(Col1R3).addChild(Col2R3);
-	Col2R3.addChild(buttonR3);
-	Row4.addChild(Col1R4);
-	Col1R4.addChild(buttonR4);
-
-	renderLayout(Layout);
-	console.log(Layout.xml);*/
 
 	/*
 	 *Attaches xml Elements to html elements
@@ -56,7 +42,7 @@
 	 */
 	var attachXmlElem = function(target) {
 		console.log("target" + target);
-		var elem = createChildToAdd(target.xmlElem);
+		var elem = createChildToAdd(target);
 		target.xmlElem.addChild(elem);
 		addHtmlChild(target, elem);
 	}
@@ -67,16 +53,25 @@
 	 *parent
 	 */
 	var createChildToAdd = function(parent) {
-		switch(parent.type) {
-			case "LAYOUT":
-				return new Element("ROW");
-				break;
-			case "ROW":
-				return new Element("COLUMN");
-				break;
-			default:
-				console.log("INVALID ELEMENT ID");
-				break;
+		//if adding to the initial layout, a row is always added
+		if(parent.xmlElem.type === "LAYOUT") {
+			return new Element("ROW");
+		} else {
+			console.log(parent.childNodes[2].value);
+			switch(parent.childNodes[2].value) {//switching value of select menu
+				case "ROW":
+					return new Element("ROW");
+					break;
+				case "COLUMN":
+					return new Element("COLUMN");
+					break;
+				case "BUTTON":
+					return new Element("BUTTON");
+					break;
+				default:
+					console.log("INVALID ELEMENT ID");
+					break;
+			}
 		}
 	}
 
@@ -89,10 +84,23 @@
 			li = document.createElement("li");
 		li.innerHTML =  childXml.type + " <span class='glyphicon glyphicon-plus add-button'></span>"
 		li.xmlElem = childXml;
+		addSelectMenu(li);
 		ul.appendChild(li);
 		parent.appendChild(ul);
 		var glyphicon_span = li.children[0];
 		$(glyphicon_span).click(xmlAdditionCallback);			
+	}
+
+	/*
+	 *Adds select menu to li given to it, select menu is
+	 *used to select which element to add to layout
+	 */
+	var addSelectMenu = function(li) {
+		var select = document.createElement("select");
+		select.innerHTML = '<option value="ROW">Row</option>' +
+						   '<option value="COLUMN">Column</option>' +
+						   '<option value="BUTTON">Button</option>';
+		$(li).append(select);
 	}
 
 
@@ -102,7 +110,6 @@
 	var xmlAdditionCallback = function() {
 		var target = this.parentNode;
 		attachXmlElem(target);
-		console.log(target.xmlElem.type);
 		clearLayout(Layout);
 		renderLayout(Layout);
 		document.getElementById("results").innerHTML = Layout.xml;
@@ -120,119 +127,3 @@
 
 
 })();
-
-/* Current Output
-<!-- LAYOUT -->
-<LinearLayout 
-	xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:tools="http://schemas.android.com/tools"
-	android:layout_width="match_parent"
-	android:layout_height="match_parent"
-	android:orientation="vertical">
-	<!-- ROW -->
-	<LinearLayout
-		android:orientation="horizontal"
-		android:layout_width="match_parent"
-		android:layout_height="0dp"
-		android:layout_weight="1">
-		<!-- COLUMN -->
-		<LinearLayout
-			android:orientation="vertical"
-			android:layout_width="0dp"
-			android:layout_height="match_parent"
-			android:layout_weight="1">
-			<Button
-				android:layout_width="match_parent"
-				android:layout_height="match_parent"
-				android:text="New Button"
-				android:id="@+id/button" />
-		</LinearLayout>
-		<!-- COLUMN -->
-		<LinearLayout
-			android:orientation="vertical"
-			android:layout_width="0dp"
-			android:layout_height="match_parent"
-			android:layout_weight="1">
-		</LinearLayout>
-	</LinearLayout>
-	<!-- ROW -->
-	<LinearLayout
-		android:orientation="horizontal"
-		android:layout_width="match_parent"
-		android:layout_height="0dp"
-		android:layout_weight="1">
-		<!-- COLUMN -->
-		<LinearLayout
-			android:orientation="vertical"
-			android:layout_width="0dp"
-			android:layout_height="match_parent"
-			android:layout_weight="1">
-		</LinearLayout>
-		<!-- COLUMN -->
-		<LinearLayout
-			android:orientation="vertical"
-			android:layout_width="0dp"
-			android:layout_height="match_parent"
-			android:layout_weight="1">
-			<Button
-				android:layout_width="match_parent"
-				android:layout_height="match_parent"
-				android:text="New Button"
-				android:id="@+id/button" />
-		</LinearLayout>
-		<!-- COLUMN -->
-		<LinearLayout
-			android:orientation="vertical"
-			android:layout_width="0dp"
-			android:layout_height="match_parent"
-			android:layout_weight="1">
-		</LinearLayout>
-	</LinearLayout>
-	<!-- ROW -->
-	<LinearLayout
-		android:orientation="horizontal"
-		android:layout_width="match_parent"
-		android:layout_height="0dp"
-		android:layout_weight="1">
-		<!-- COLUMN -->
-		<LinearLayout
-			android:orientation="vertical"
-			android:layout_width="0dp"
-			android:layout_height="match_parent"
-			android:layout_weight="1">
-		</LinearLayout>
-		<!-- COLUMN -->
-		<LinearLayout
-			android:orientation="vertical"
-			android:layout_width="0dp"
-			android:layout_height="match_parent"
-			android:layout_weight="1">
-			<Button
-				android:layout_width="match_parent"
-				android:layout_height="match_parent"
-				android:text="New Button"
-				android:id="@+id/button" />
-		</LinearLayout>
-	</LinearLayout>
-	<!-- ROW -->
-	<LinearLayout
-		android:orientation="horizontal"
-		android:layout_width="match_parent"
-		android:layout_height="0dp"
-		android:layout_weight="1">
-		<!-- COLUMN -->
-		<LinearLayout
-			android:orientation="vertical"
-			android:layout_width="0dp"
-			android:layout_height="match_parent"
-			android:layout_weight="1">
-			<Button
-				android:layout_width="match_parent"
-				android:layout_height="match_parent"
-				android:text="New Button"
-				android:id="@+id/button" />
-		</LinearLayout>
-	</LinearLayout>
-</LinearLayout>
-
-*/

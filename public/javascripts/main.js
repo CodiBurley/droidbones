@@ -36,12 +36,35 @@
 		child.xml = "";
 	}
 
+
+	/*
+     *Clears all children of a list, along with the 
+     *xml Elements in the list
+     */
+	var clearListElems = function(li) {
+		li.innerHTML = li.xmlElem.type + "<span class='glyphicon glyphicon-plus add-button'></span>";
+		clearLayout(li.xmlElem);
+		li.xmlElem.clearChildren();
+		renderLayout(Layout);
+		var glyphicon_span = li.children[0];
+		$(glyphicon_span).click(xmlAdditionCallback);
+	}
+
+	/*
+	 *Renders the layout and puts the results into
+	 *the results section
+	 */
+	var displayLayout = function() {
+		clearLayout(Layout);
+		renderLayout(Layout);
+		document.getElementById("results").innerHTML = Layout.xml;	
+	}
+
 	/*
 	 *Attaches xml Elements to html elements
 	 *and adds children to the xml Element
 	 */
 	var attachXmlElem = function(target) {
-		console.log("target" + target);
 		var elem = createChildToAdd(target);
 		target.xmlElem.addChild(elem);
 		addHtmlChild(target, elem);
@@ -57,7 +80,6 @@
 		if(parent.xmlElem.type === "LAYOUT") {
 			return new Element("ROW");
 		} else {
-			console.log(parent.childNodes[2].value);
 			switch(parent.childNodes[2].value) {//switching value of select menu
 				case "ROW":
 					return new Element("ROW");
@@ -110,19 +132,31 @@
 	var xmlAdditionCallback = function() {
 		var target = this.parentNode;
 		attachXmlElem(target);
-		clearLayout(Layout);
-		renderLayout(Layout);
-		document.getElementById("results").innerHTML = Layout.xml;
-		console.log(document.getElementById("results").innerHTML);
+		displayLayout();
 	};
 	
-	
+	/* --- ENTRY POINT --- */
 	$(document).ready(function() {
 		var	list_root = document.getElementById("root_layout");
 		list_root.xmlElem = Layout;
 
-		//Get the element that is being clicked (added to)
-		$('#add-button').click(xmlAdditionCallback);		
+		//Add to list item
+		$('#add-button').click(xmlAdditionCallback);	
+		//reset list
+		$('#reset-button').click(function() {
+			clearListElems(list_root);
+			displayLayout();
+		});
+		//download xml layout file
+		$('#download-btn').click(function() {
+			var params = { file_string: $('#results').text() };
+			$.get('/download', params, function(results) {
+				$('#download-link').html('layout.xml');
+				$('#download-link').css('display', 'block');
+			})
+		});
+		//hide download link after clicked
+		$('#download-link').click(function() { $(this).toggle(); });
 	});
 
 

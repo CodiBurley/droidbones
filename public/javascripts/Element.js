@@ -26,6 +26,10 @@ var ELEMENT = (function() {
 			this.xml = "";
 		}
 
+		this.clearChildren = function() {
+			this.children.length = 0;
+		}
+
 	}
 
 	return {

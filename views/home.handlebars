@@ -1,31 +1,40 @@
 
-<div class="jumbotron">
-	<h1> Welcome Home </h1>
+<div class="tile" id="header">
+	<h1 class="text-color1" id="header-text"> Droid Bones </h1>
 </div>
-<div class="container">
+<div class="container" id="content">
 	<div class="row">
 		<div class="col-md-6">
-			<ul>
-				<li id="root_layout"> Layout <span class="glyphicon glyphicon-plus" id="add-button"></span>
-				<!--	<ul>
-						<li> Row
-							<ul>
-								<li> Column </li>
-								<li> Column </li>
-							</ul>
-						</li>
-						<li> Row
-					 		<ul>
-								<li> Column </li>
-								<li> Column </li>
-							</ul>
-						</li>
-					</ul> -->
-				</li>	
-			</ul>	
+			<button type="buttton" id="reset-button" class="btn btn-info btn-block tile back-color1">Reset</button>
+			<div id="input-div" class="content-scroll tile">
+				<ul>
+					<li id="root_layout"> LAYOUT <span class="glyphicon glyphicon-plus" id="add-button"></span>
+					<!--	<ul>
+							<li> Row
+								<ul>
+									<li> Column </li>
+									<li> Column </li>
+								</ul>
+							</li>
+							<li> Row
+						 		<ul>
+									<li> Column </li>
+									<li> Column </li>
+								</ul>
+							</li>
+						</ul> -->
+					</li>	
+				</ul>	
+			</div>
 		</div>
 		<div class="col-md-6" id="results-col">
-			<p id="results"></p>
+			<button type="buttton" class="btn btn-info btn-block tile back-color1" id="download-btn">
+				Download
+			</button>
+			<a id="download-link" href="layout.xml" download></a>
+			<div id="results-div" class="content-scroll tile">
+				<p id="results"></p>
+			</div>
 		</div>
 	</div>
 </div>	

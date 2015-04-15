@@ -2,9 +2,14 @@ var express = require('express');
 var fs = require('fs');
 var router = express.Router();
 
-/* GET home page. */
+/* GET about page. */
 router.get('/', function(req, res, next) {
-  res.render('home');
+  res.render('about');
+});
+
+/* GET about page */
+router.get('/home', function(req, res) {
+	res.render('home');
 });
 
 router.get('/download', function(req, res, next) {

@@ -22,19 +22,19 @@ var CONSTANT = (function() {
 	            +'android:layout_width="0dp"<br>'
 	            +'android:layout_height="match_parent"<br>'
 	            +'android:layout_weight="1"&gt<br>',
-	    "BUTTON":''
+	    "CONTENT":''
 	};
 
 	var _backs = {
 		"LAYOUT": '&lt/LinearLayout&gt<br>',
 		"ROW": '&lt/LinearLayout&gt<br>',
 		"COLUMN": '&lt/LinearLayout&gt<br>',
-		"BUTTON":
-				'&lt!-- BUTTON --&gt<br>'
+		"CONTENT":
+				'&lt!-- CONTENT --&gt<br>'
 	    	    +'&ltButton<br>'
 	                +'android:layout_width="match_parent"<br>'
 	                +'android:layout_height="match_parent"<br>'
-	                +'android:text="New Button"/&gt<br>'		
+	                +'android:text="Content"/&gt<br>'		
 	};
 
 	return {

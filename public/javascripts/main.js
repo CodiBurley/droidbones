@@ -87,8 +87,8 @@
 				case "COLUMN":
 					return new Element("COLUMN");
 					break;
-				case "BUTTON":
-					return new Element("BUTTON");
+				case "CONTENT":
+					return new Element("CONTENT");
 					break;
 				default:
 					console.log("INVALID ELEMENT ID");
@@ -121,7 +121,7 @@
 		var select = document.createElement("select");
 		select.innerHTML = '<option value="ROW">Row</option>' +
 						   '<option value="COLUMN">Column</option>' +
-						   '<option value="BUTTON">Button</option>';
+						   '<option value="CONTENT">Content</option>';
 		$(li).append(select);
 	}
 

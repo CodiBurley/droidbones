@@ -39,6 +39,13 @@ a {
 	font-size: 4em;
 }
 
+.header-pic {
+	width: 4em;
+	display: inline-block;
+	margin-top: 1.5em;
+	margin-right: 1.5em;
+}
+
 .content {
 	padding-top: 3em;
 	margin-top: 7.5em;
